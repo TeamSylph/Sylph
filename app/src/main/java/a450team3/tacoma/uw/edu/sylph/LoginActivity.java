@@ -22,6 +22,8 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import a450team3.tacoma.uw.edu.sylph.favorites.FavoriteActivity;
+
 /**
  * Class for a Login Activity
  */
@@ -60,11 +62,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //FavoriteActivity favActivity = new FavoriteActivity();
-                getSupportFragmentManager().beginTransaction()
-                        //.replace(R.id.activity_favorite, favActivity)
-                        .addToBackStack(null)
-                        .commit();
+                Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -139,6 +138,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             case R.id.sign_out_button:
                 signOut();
                 break;
+            case R.id.to_player_button:
+                openYoutubePlayer();
+                break;
         }
     }
 
@@ -148,8 +150,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
-        startActivity(new Intent(this,YoutubePlayerActivity.class));
-
     }
 
     /**
@@ -194,13 +194,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         // Pull Account details from Google.
         GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-        GoogleSignInAccount acct = result.getSignInAccount();
-        String personName = acct.getDisplayName();
-        String personGivenName = acct.getGivenName();
-        String personFamilyName = acct.getFamilyName();
-        String personEmail = acct.getEmail();
-        String personId = acct.getId();
-        Uri personPhoto = acct.getPhotoUrl();
+        if (result.isSuccess()) {
+            GoogleSignInAccount acct = result.getSignInAccount();
+            String personName = acct.getDisplayName();
+            String personGivenName = acct.getGivenName();
+            String personFamilyName = acct.getFamilyName();
+            String personEmail = acct.getEmail();
+            String personId = acct.getId();
+            Uri personPhoto = acct.getPhotoUrl();
+        }
     }
 
     /**
@@ -221,7 +223,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
      */
     private void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.hide();
+            mProgressDialog.dismiss();
         }
     }
 
@@ -242,4 +244,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             updateUI(false);
         }
     }
+
+    public void openYoutubePlayer() {
+        Intent intent = new Intent(this, YoutubePlayerActivity.class);
+        startActivity(intent);
+    }
+
 }

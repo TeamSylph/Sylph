@@ -1,6 +1,7 @@
 package a450team3.tacoma.uw.edu.sylph;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
@@ -18,6 +19,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import a450team3.tacoma.uw.edu.sylph.favorites.FavoriteActivity;
+
 
 public class YoutubePlayerActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
     //API_KEY for the connecting with youtube API
@@ -31,6 +34,10 @@ public class YoutubePlayerActivity extends YouTubeBaseActivity implements YouTub
         // attaching layout xml
         setContentView(R.layout.activity_youtube_player);
 
+        //Getting Extra if there is any
+        Intent intent = getIntent();
+
+
         //Populating the video_List with video_id
         mVideo_List = new ArrayList<String>();
         mVideo_List.add("PT2_F-1esPk"); //The Chainsmokers - Closer
@@ -38,6 +45,11 @@ public class YoutubePlayerActivity extends YouTubeBaseActivity implements YouTub
         mVideo_List.add("Pw-0pbY9JeU"); //twenty one pilots - Ride
         mVideo_List.add("RgKAFK5djSk"); //Wiz Khalifa - See You Again
         mVideo_List.add("09R8_2nJtjg"); //Maroon 5 - Sugar
+        if ((intent.getStringExtra(FavoriteActivity.YOUTUBE_CODE)) != null) {
+            //Add the one from favorites if it exists
+            mVideo_List.add(intent.getStringExtra(FavoriteActivity.YOUTUBE_CODE));
+        }
+
 
         //Help display the video id (future this will be Title and Artist)
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_listview, mVideo_List);

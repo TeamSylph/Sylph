@@ -10,4 +10,6 @@
 
     <!-- Content Description for images -->
     <string name="desc_google_icon">Google Logo</string>
+    <string name="title_activity_favorite">FavoriteActivity</string>
+    <string name="youtube_player_button_text">Youtube Player</string>
 </resources>

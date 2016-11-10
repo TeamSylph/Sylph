@@ -36,9 +36,10 @@
 
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="2">
+
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
@@ -47,6 +48,21 @@
             android:visibility="visible"
             tools:visibility="gone" />
 
+
+        <Button
+            android:text="@string/youtube_player_button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/fab"
+            android:layout_toRightOf="@+id/sign_in_button"
+            android:layout_toEndOf="@+id/sign_in_button"
+            android:layout_marginLeft="39dp"
+            android:layout_marginStart="39dp"
+            android:layout_gravity="bottom|left"
+            android:id="@+id/to_player_button"
+            android:onClick="onClick"
+            android:visibility="visible"
+            tools:visibility="visible"/>
 
         <Button
             android:id="@+id/sign_out_button"
@@ -67,7 +83,10 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="59dp" />
+            android:layout_marginEnd="59dp"
+            />
+
+
 
     </RelativeLayout>
 
